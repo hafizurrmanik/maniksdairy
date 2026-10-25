@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f6f8">
+  <title>My Life OS — Japan Life Manager</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><div class="brand-mark">M</div><div><strong>My Life OS</strong><span>Japan Life Manager</span></div></div>
+      <nav class="nav" aria-label="Main navigation">
+        <p class="nav-label">Workspace</p>
+        <button class="nav-item active" data-view="dashboard"><span>⌂</span>Dashboard</button>
+        <button class="nav-item" data-view="work"><span>◷</span>Job & Working Hours</button>
+        <button class="nav-item" data-view="money"><span>¥</span>Salary & Income</button>
+        <button class="nav-item" data-view="expenses"><span>↘</span>Expenses</button>
+        <button class="nav-item" data-view="debts"><span>◇</span>Debt & Payments</button>
+        <button class="nav-item" data-view="diary"><span>✎</span>Personal Diary</button>
+        <button class="nav-item" data-view="study"><span>▣</span>Study & Career</button>
+        <button class="nav-item" data-view="reminders"><span>○</span>Calendar & Reminders</button>
+        <button class="nav-item" data-view="goals"><span>◒</span>Goals & Habits</button>
+        <button class="nav-item" data-view="memories"><span>✦</span>Memories & Timeline</button>
+        <p class="nav-label">Manage</p>
+        <button class="nav-item" data-view="reports"><span>▤</span>Reports & Export</button>
+        <button class="nav-item" data-view="backup"><span>↥</span>Backup & Restore</button>
+        <button class="nav-item" data-view="settings"><span>⚙</span>Settings</button>
+      </nav>
+      <div class="sidebar-footer"><span class="status-dot"></span><span>Local-only storage</span></div>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button><div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="pageTitle">Dashboard</strong></div><div class="top-actions"><label class="search"><span>⌕</span><input id="globalSearch" placeholder="Search records..." aria-label="Search records"></label><select id="language" aria-label="Language"><option value="en">English</option><option value="bn">বাংলা</option></select><button class="icon-btn" id="themeToggle" aria-label="Toggle theme">☾</button><button class="avatar">AS</button></div></header>
+      <section class="content" id="app"></section>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <dialog id="recordDialog"><form method="dialog" id="recordForm"><div class="dialog-head"><div><p class="eyebrow">Quick capture</p><h2 id="dialogTitle">Add record</h2></div><button class="close" value="cancel" aria-label="Close">×</button></div><div id="dialogFields" class="form-grid"></div><div class="dialog-actions"><button class="btn secondary" value="cancel">Cancel</button><button class="btn primary" id="saveRecord" value="default">Save record</button></div></form></dialog>
+  <script src="js/app.js"></script>
+</body>
+</html>
