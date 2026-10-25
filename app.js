@@ -38,7 +38,10 @@ const T = {
   }
 };
 const STORES = ['workplaces', 'shifts', 'expenses', 'settings'];
-let lang = localStorage.lang || 'en', db, D = {}, page = 'dash', wk = 0, em = '';
+// Preferences are namespaced and validated: other pages on the same address may already use a plain lang key.
+const pref = (k, ok, d) => { try { const v = localStorage.getItem('lifeos.' + k); return ok.includes(v) ? v : d; } catch { return d; } };
+const setPref = (k, v) => { try { localStorage.setItem('lifeos.' + k, v); } catch { /* storage blocked: keep going */ } };
+let lang = pref('lang', ['en', 'bn'], 'en'), db, D = {}, page = 'dash', wk = 0, em = '';
 const $ = i => document.getElementById(i);
 const t = k => T[lang][k] || k;
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
@@ -238,11 +241,11 @@ async function render() {
 }
 (async () => {
   db = await open();
-  const th = localStorage.theme || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+  const th = pref('theme', ['light', 'dark'], matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
   document.documentElement.dataset.theme = th;
   $('theme').value = th;
   $('lang').value = lang;
-  $('theme').onchange = e => { localStorage.theme = e.target.value; document.documentElement.dataset.theme = e.target.value; };
-  $('lang').onchange = e => { lang = localStorage.lang = e.target.value; render(); };
+  $('theme').onchange = e => { setPref('theme', e.target.value); document.documentElement.dataset.theme = e.target.value; };
+  $('lang').onchange = e => { lang = e.target.value; setPref('lang', lang); render(); };
   await render();
-})().catch(e => { document.body.textContent = 'Storage error: ' + e.message; });
+})().catch(e => { document.body.textContent = 'Could not start: ' + e.message; });
